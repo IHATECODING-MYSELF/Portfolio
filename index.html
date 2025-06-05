@@ -24,7 +24,7 @@
     }
 
     header {
-      background-color: #1e40af;
+      background-color: #14c7be;
       color: white;
       padding: 1rem 2rem;
       display: flex;
@@ -39,10 +39,6 @@
     .logo {
       font-size: 1.5rem;
       font-weight: bold;
-    }
-
-    nav {
-      display: none;
     }
 
     nav a {
@@ -71,41 +67,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    #loginForm {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      max-width: 360px;
-      margin: 5rem auto;
-    }
-
-    input {
-      padding: 0.7rem;
-      font-size: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      padding: 0.8rem;
-      font-weight: bold;
-      background-color: #2563eb;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #1d4ed8;
-    }
-
-    #logoutBtn {
-      display: none;
-      margin: 2rem auto;
-      background-color: #dc2626;
-    }
-
     section {
       margin-top: 3rem;
     }
@@ -122,37 +83,33 @@
       height: 140px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid #2563eb;
+      border: 3px solid #2a078a;
     }
 
     .cards {
-      display: flex;
-      overflow-x: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1.5rem;
-      padding-bottom: 1rem;
-      scroll-snap-type: x mandatory;
     }
 
     .card {
-      min-width: 220px;
-      flex-shrink: 0;
       background: #f8fafc;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      scroll-snap-align: start;
-      transition: transform 0.3s ease;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .card:hover {
       transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
 
     .card img {
       width: 100%;
       height: 150px;
       object-fit: cover;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
     }
 
     .card-content {
@@ -174,7 +131,7 @@
     }
 
     a {
-      color: #2563eb;
+      color: #ff0000;
     }
 
     @media (max-width: 600px) {
@@ -183,13 +140,62 @@
         text-align: center;
       }
     }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      animation: fadeInModal 0.4s ease;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      animation: zoomIn 0.3s ease;
+    }
+
+    .modal-content img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #1e293b;
+    }
+
+    @keyframes fadeInModal {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
   </style>
 </head>
 <body>
 
   <header>
     <div class="logo">Kian's</div>
-    <nav id="navLinks">
+    <nav>
       <a href="#about">About</a>
       <a href="#gallery">Gallery</a>
       <a href="#contact">Contact</a>
@@ -197,103 +203,133 @@
   </header>
 
   <div class="container">
-    <div id="loginForm">
-      <h2>Welcome Back!</h2>
-      <input type="text" id="username" placeholder="Username">
-      <input type="password" id="password" placeholder="Password">
-      <button onclick="login()">Log In</button>
-    </div>
+    <section id="about">
+      <h2>About Me</h2>
+      <div class="about-section">
+        <img id="profilePic" src="https://scontent.fmnl13-4.fna.fbcdn.net/v/t39.30808-6/473091082_1267848454326543_8551968697000355349_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=MsKPrlprJe0Q7kNvwE5bU3b&_nc_oc=Adk9V-LqARGGVH1AgBgNiMkqn58LW-xCJFYxTZ7zSXUbf41I2HJkcgZU_4m0Um1hhqM&_nc_zt=23&_nc_ht=scontent.fmnl13-4.fna&_nc_gid=WyVIPHo271V2FLkpQ5l8cg&oh=00_AfOOxFV9G16HPRxLZrpyqG15QQ5CFbVh6Nl0vRo3dqs0mg&oe=68473A89" alt="Profile Picture">
+        <div>
+          <p>Hi! I’m Kian  a student with a deep love for creativity and self-expression. I’ve always been drawn to the worlds of coding, gaming, and art, and I enjoy building things that feel meaningful, whether it’s a cool website or a fun personal project.
 
-    <div id="portfolioSection" style="display:none;">
-      <section id="about">
-        <h2>About Me</h2>
-        <div class="about-section">
-          <img id="profilePic" src="https://scontent.fcrk2-3.fna.fbcdn.net/v/t39.30808-6/473091082_1267848454326543_8551968697000355349_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=GPIKtflG5m0Q7kNvwEaEVZB&_nc_oc=Adlg3xk2NCnpj11hf2nv_K_yVTzJ2ehLTTBV4eTsxYKahHNYrzCpsM537537hevGmuI&_nc_zt=23&_nc_ht=scontent.fcrk2-3.fna&_nc_gid=uuFHfyhiLFvm5qRntumVLQ&oh=00_AfIXf_1aRUlyLKxCAfTnu-nmdQen3nSlszsDU2vqYwCjaw&oe=6844CFC9" alt="Profile Picture">
-          <div>
-            <p>Hi! I'm Kian, a student who loves coding, gaming, drawing, and collecting figurines. I enjoy creating fun and meaningful projects.</p>
-          </div>
+One of my biggest passions is gaming  I get completely immersed in the worlds and stories they tell. I’m especially a huge fan of Expedition 33 and the Fate series. The characters and lore from those games really fuel my imagination and give me ideas for future projects.
+
+I also love listening to Ado’s music  her voice is so powerful and unique. Her song Ibara especially inspired me and reminded me how deeply music can connect with emotions.
+
+Outside of digital stuff I’m really into collecting figurines, especially from anime and games I admire. It’s one of the ways I stay close to the characters and stories that inspire me the most.
+
+Whether I’m coding late at night or setting up my next display shelf, I’m always working on turning my passions into something I can share. Thanks for visiting I’m excited for what comes next.</p>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="gallery">
-        <h2>Gallery</h2>
-        <div class="cards">
-          <div class="card">
-            <img src="https://cdn.mobygames.com/b1258fb4-20dc-11f0-9a79-02420a000167.webp" alt="Gaming">
-            <div class="card-content">
-              <div class="card-title">Gaming</div>
-              <div class="card-desc">My favorite game this year.</div>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://scontent.fmnl13-3.fna.fbcdn.net/v/t1.6435-9/121991453_363707738073957_9121734650258650210_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=w839TT03rWEQ7kNvwHhFxLv&_nc_oc=AdkwGfdPEFwbgP1kzpo34EnaIA5EIKVYsjdLpFzZZyDKSNcyMidvgi9CiqDil_I75_0&_nc_zt=23&_nc_ht=scontent.fmnl13-3.fna&_nc_gid=i5M6fBxOP9ciwY-wP8kZ_g&oh=00_AfK4A4oAUmROsXgKE0BAPEhDRvzq042z6Nautuau9hEUGg&oe=6866389B" alt="Drawing">
-            <div class="card-content">
-              <div class="card-title">Drawing</div>
-              <div class="card-desc">My personal artwork sketch.</div>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://scontent.fmnl13-3.fna.fbcdn.net/v/t1.15752-9/495071555_1038531014387909_7865686702715744430_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=Bv58lI9GmYoQ7kNvwFKNlsd&_nc_oc=AdnU49KQL6N0mZXf3ukKbxoPvrTCZ2T6AnKiQibPLHt9fmjJkfF-j_BlMz5fOrJUWI8&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl13-3.fna&oh=03_Q7cD2QFfB-zNRJXNhObesUJz6WP134KvXQ4Y9wVrxQtieXgHlw&oe=68666C47" alt="Collecting">
-            <div class="card-content">
-              <div class="card-title">Collecting</div>
-              <div class="card-desc">My figurine collection.</div>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t1.15752-9/494688503_693829993374957_4129888496561595013_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=104&ccb=1-7&_nc_sid=0024fc&_nc_ohc=Qz-wDxklEyUQ7kNvwFGgooP&_nc_oc=AdnDSQ1PLSgTRG5Mhb6AJ6qvwcxxBAC_kz3crVhW1B6w_4Lcxp1WDibICIYzjMxOqj8&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl13-2.fna&oh=03_Q7cD2QHwxixSnmlFThQg5e74wE0SZAitJvBz7kc0w8y84stDgg&oe=68663875" alt="Coding">
-            <div class="card-content">
-              <div class="card-title">Coding</div>
-              <div class="card-desc">Late night coding sessions.</div>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://scontent.fcrk2-1.fna.fbcdn.net/v/t1.15752-9/494687611_1212879356830485_8447443332694290210_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=102&ccb=1-7&_nc_sid=0024fc&_nc_ohc=axi6VedhkSsQ7kNvwEfU0H3&_nc_oc=AdmkNGk2U_jrmqz_D5EdPSlOHiED_suuV4v44OUda00gMtU5Sy1f80umaxotg7BSr9k&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fcrk2-1.fna&oh=03_Q7cD2QG-NRJCvTuQxxmhPjmYxRky5pSWM9qH2PontE4dHegbmQ&oe=68663CC8" alt="More Gaming">
-            <div class="card-content">
-              <div class="card-title">More Gaming</div>
-              <div class="card-desc">Starting my Cyberpunk journey lets gooo!.</div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <section id="gallery">
+      <h2>Gallery</h2>
+      <div class="cards" id="galleryGrid">
+       
+      </div>
+    </section>
 
-      <section id="contact">
-        <h2>Contact</h2>
-        <p>You can reach me at:</p>
-        <ul>
-          <li>Email: <a href="mailto:singuaykian002@example.com">kian@example.com</a></li>
-          </ul>
-      </section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>You can reach me at:</p>
+      <ul>
+        <li>Email: <a href="mailto:singuaykian002@gmail.com">singuaykian002@gmail.com</a></li>
+      </ul>
+    </section>
+  </div>
+
+  
+  <div class="modal" id="photoModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img id="modalImage" src="" alt="">
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc"></p>
     </div>
-
-    <button id="logoutBtn" onclick="logout()">Log Out</button>
   </div>
 
   <script>
-    function login() {
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value.trim();
-      if (username === "kian" && password === "password123") {
-        document.getElementById("loginForm").style.display = "none";
-        document.getElementById("portfolioSection").style.display = "block";
-        document.getElementById("navLinks").style.display = "flex";
-        document.getElementById("logoutBtn").style.display = "block";
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        alert("Wrong credentials!\nHint: kian / password123");
+    const photos = [
+      {
+        title: "Gaming",
+        desc: "My favorite game this year.",
+        src: "https://cdn.mobygames.com/b1258fb4-20dc-11f0-9a79-02420a000167.webp"
+      },
+      {
+        title: "My Goat",
+        desc: "Artoria or King Arthur",
+        src: "https://static.wikia.nocookie.net/p__/images/d/d6/Artoria5.jpeg/revision/latest?cb=20220620224214&path-prefix=protagonist"
+      },
+      {
+        title: "Collecting",
+        desc: "My figurine collection.",
+        src: "https://scontent.fmnl13-1.fna.fbcdn.net/v/t1.15752-9/494691253_1223853082774291_6514480815203334769_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=9f807c&_nc_ohc=ToD16LkcOYwQ7kNvwFX-9KV&_nc_oc=Adl_IWyarNvWMDHOr63s3ZAi_pVebdsJ0pcabkAyPttzB_cQ0dbII2p1TEXm6L1DBnA&_nc_zt=23&_nc_ht=scontent.fmnl13-1.fna&oh=03_Q7cD2gG_c0VpO0b9stgm0jhYLBifmOHNZwBEoHw7vSLjylZziQ&oe=6868C58C"
+      },
+      {
+        title: "Coding",
+        desc: "enjoying css and html rn hope it stay's this way.",
+        src: "https://scontent.fmnl13-1.fna.fbcdn.net/v/t1.15752-9/494688503_693829993374957_4129888496561595013_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=104&ccb=1-7&_nc_sid=0024fc&_nc_ohc=4ovPF4cZQEsQ7kNvwEYoGk0&_nc_oc=AdlSo4W1aNrCbYSMUXciHWqdqKr0SSvoYBfHULQVrcg9Bx7ECdtxP6HO7iCB9sdJnI4&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl13-1.fna&oh=03_Q7cD2gH7UQWPANx7bvBA7G6bg-r9JD5KB-MCTshNr1oGjVtoCQ&oe=6868DB75"
+      },
+      {
+        title: "More Gaming",
+        desc: "I love reading visual novels",
+        src: "https://upload.wikimedia.org/wikipedia/en/d/d4/Fate-stay_night.jpg"
+      },
+      {
+        title: "Books",
+        desc: "I love 86.",
+        src: "https://down-ph.img.susercontent.com/file/id-11134207-7r98z-lrx1ot5gnrrd9f"
+      },
+      {
+        title: "Music",
+        desc: "I love Ado.",
+        src: "https://i.scdn.co/image/ab6761610000e5ebbcb1c184c322688f10cdce7a"
+      },
+      {
+        title: "New Anime Figurines",
+        desc: "the new ones.",
+        src: "https://scontent.fmnl13-3.fna.fbcdn.net/v/t1.15752-9/495071555_1038531014387909_7865686702715744430_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=9f807c&_nc_ohc=faBrhzScwxkQ7kNvwF-yGa-&_nc_oc=AdlIfcLLJ7rdKkAAOsLqMlAx7bFCIa2JPgYSmOLZW5qr9Re495SpE9euFEC0iwxCQTg&_nc_zt=23&_nc_ht=scontent.fmnl13-3.fna&oh=03_Q7cD2gGmMJ42lBd1KpGL8Tbr-L6LiXWXKg3nusuRVs-vwAfGXA&oe=6868D707"
+      },
+      {
+        title: "My PC Setup",
+        desc: "My coding and gaming station!",
+        src: "https://scontent.fmnl13-4.fna.fbcdn.net/v/t1.15752-9/494691012_2227321574379382_5043860141090053241_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=109&ccb=1-7&_nc_sid=0024fc&_nc_ohc=Cu5rXbaPGHYQ7kNvwGf-0Jn&_nc_oc=Adnc2hU1oXECJHPEYv-b8eGvpu4TFsyLEgLHL4GR5sWTQiehwHPXF1gO7I-r6pYeSZw&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl13-4.fna&oh=03_Q7cD2gHCzXMjPiDZJXOmp2NQLjbdRbofmkp_TJUdrczqdPnZvw&oe=6868CE46"
+      }
+    ];
+
+    const galleryGrid = document.getElementById("galleryGrid");
+    const modal = document.getElementById("photoModal");
+    const modalImage = document.getElementById("modalImage");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDesc = document.getElementById("modalDesc");
+
+    photos.forEach(photo => {
+      const card = document.createElement("div");
+      card.classList.add("card");
+      card.innerHTML = `
+        <img src="${photo.src}" alt="${photo.title}">
+        <div class="card-content">
+          <div class="card-title">${photo.title}</div>
+          <div class="card-desc">${photo.desc}</div>
+        </div>
+      `;
+      card.onclick = () => {
+        modalImage.src = photo.src;
+        modalTitle.textContent = photo.title;
+        modalDesc.textContent = photo.desc;
+        modal.style.display = "flex";
+      };
+      galleryGrid.appendChild(card);
+    });
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        closeModal();
       }
     }
-
-    function logout() {
-      document.getElementById("loginForm").style.display = "flex";
-      document.getElementById("portfolioSection").style.display = "none";
-      document.getElementById("navLinks").style.display = "none";
-      document.getElementById("logoutBtn").style.display = "none";
-      document.getElementById("username").value = "";
-      document.getElementById("password").value = "";
-    }
-
-    document.getElementById("navLinks").style.display = "none";
   </script>
 </body>
 </html>
-
